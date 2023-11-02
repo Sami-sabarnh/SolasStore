@@ -1,0 +1,71 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@model IEnumerable<Solas.BL.Models.Menu>
+@inject SignInManager<Solas.BL.Models.ApplicationUser> _signInManager
+
+<div class="main-menu main-menu2 d-none d-lg-block">
+    <nav id="mobile-menu">
+        <ul>
+            @foreach (var item in Model.Where(x=>x.AdminJustShow==false))
+            {
+                @if (item.subMenus.Any())
+                {
+                    <li class="menu-item-has-children">
+                        <a asp-action="@item.ActionName" asp-controller="@item.ControllerName">@item.MenuName</a>
+
+                        <ul class="sub-menu">
+                            @foreach (var submenu in item.subMenus)
+                            {
+
+                                <li><a asp-action="@submenu.ActionNane" asp-controller="@submenu.ControllerName">@submenu.SubMenuName</a></li>
+
+
+                            }
+                    </ul>
+                  
+                    </li>
+                }
+                else
+                {
+                    <li>  <a asp-action="@item.ActionName" asp-controller="@item.ControllerName">@item.MenuName</a>
+                    </li>
+
+                }
+            }
+              @if (_signInManager.IsSignedIn(User))
+            {
+
+                @foreach (var item in Model.Where(x => x.AdminJustShow))
+                {
+                    if (User.IsInRole("Admin"))
+                    {
+                        @if (item.subMenus.Any())
+                        {
+                            <li class="menu-item-has-children">
+                                <a asp-action="@item.ActionName" asp-controller="@item.ControllerName">@item.MenuName</a>
+
+                                <ul class="sub-menu">
+                                    @foreach (var submenu in item.subMenus)
+                                    {
+
+                                        <li><a asp-area="@item.AreaName" asp-action="@submenu.ActionNane" asp-controller="@submenu.ControllerName">@submenu.SubMenuName</a></li>
+
+
+                                    }
+                                </ul>
+
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a asp-area="@item.AreaName" asp-action="@item.ActionName" asp-controller="@item.ControllerName">@item.MenuName</a>
+                            </li>
+
+                        }
+                    }
+                }
+
+            }
+        </ul>
+    </nav>
+</div>

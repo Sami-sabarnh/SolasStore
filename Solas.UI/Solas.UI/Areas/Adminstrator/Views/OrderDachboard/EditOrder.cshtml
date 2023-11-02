@@ -1,0 +1,98 @@
+﻿@model Solas.BL.Models.Order
+
+@{
+    ViewData["Title"] = "EditOrder";
+}
+
+<h1>EditOrder</h1>
+
+<h4>Order</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditOrder">
+            <div asp-validation-summary="All" class="text-danger"></div>
+         
+            <div class="form-group">
+                <label asp-for="TrackingId" class="control-label"></label>
+                <input asp-for="TrackingId" readonly class="form-control" />
+                <span asp-validation-for="TrackingId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderAmount" class="control-label"></label>
+                <input asp-for="OrderAmount" readonly class="form-control" />
+                <span asp-validation-for="OrderAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderAmountAfterdiscount" class="control-label"></label>
+                <input asp-for="OrderAmountAfterdiscount" readonly class="form-control" />
+                <span asp-validation-for="OrderAmountAfterdiscount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <input asp-for="UserId" readonly class="form-control" />
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+          
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Discount.DiscountPrecent" class="control-label"></label>
+                <input asp-for="Discount.Product" readonly class="form-control" />
+                <span asp-validation-for="Discount.DiscountPrecent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderNotes" class="control-label"></label>
+                <input asp-for="OrderNotes" readonly  class="form-control" />
+                <span asp-validation-for="OrderNotes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.City" class="control-label"></label>
+                <input asp-for="Address.City" readonly  class="form-control" />
+                <span asp-validation-for="Address.City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CouponCodeId" class="control-label"></label>
+                <input asp-for="CouponCodeId" readonly class="form-control" />
+                <span asp-validation-for="CouponCodeId" class="text-danger"></span>
+            </div>
+         
+            <div class="form-group">
+                <label asp-for="Createdate" class="control-label"></label>
+                <input asp-for="Createdate" readonly class="form-control" />
+                <span asp-validation-for="Createdate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Modifieddate" class="control-label"></label>
+                <input asp-for="Modifieddate" readonly class="form-control" />
+                <span asp-validation-for="Modifieddate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Deleteddate" class="control-label"></label>
+                <input asp-for="Deleteddate" readonly class="form-control" />
+                <span asp-validation-for="Deleteddate" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" readonly asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsPublish" /> @Html.DisplayNameFor(model => model.IsPublish)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

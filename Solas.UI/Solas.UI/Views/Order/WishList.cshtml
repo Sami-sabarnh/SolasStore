@@ -1,0 +1,116 @@
+﻿@model Solas.BL.Models.Wishlist
+@{
+    ViewData["Title"] = "WishList";
+}
+
+<!-- page title area start  -->
+<section class="page-title-area" data-background="assets/img/bg/page-title-bg.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-title-wrapper text-center">
+                    <h1 class="page-title mb-10">My Wishlist</h1>
+                    <div class="breadcrumb-menu">
+                        <nav aria-label="Breadcrumbs" class="breadcrumb-trail breadcrumbs">
+                            <ul class="trail-items">
+                                <li class="trail-item trail-begin"><a asp-action="Index" asp-controller="Home"><span>Home</span></a></li>
+                                <li class="trail-item trail-end"><span>@ViewData["Title"]</span></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- page title area end  -->
+<!-- cart area start  -->
+<div class="cart-area pt-100 pb-100">
+    <div class="container container-small">
+        <div class="row">
+            <div class="col-12">
+                <form action="#">
+                    <div class="table-content table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="product-thumbnail">Images</th>
+                                    <th class="cart-product-name">Product</th>
+                                    <th class="product-price">Unit Price</th>
+                                    <th class="product-quantity">Add to cart</th>
+                                    <th class="product-subtotal">Total</th>
+                                    <th class="product-remove">Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Products.Any())
+                                {
+                                    @foreach (var item in Model.Products)
+                                    {
+
+
+                                        <tr>
+                                            <td class="product-thumbnail">
+                                                <a asp-action="DetailsProducts" asp-controller="Home" asp-route-Id="@item.ProductId">
+                                                    <img src="~/ProductImages/@item.Product.ProductImages.FirstOrDefault()?.ProductImageUrl" alt="img">
+                                                </a>
+                                            </td>
+                                            <td class="product-name"><a asp-action="DetailsProducts" asp-controller="Home" asp-route-Id="@item.ProductId">@item.Product.ProductName</a></td>
+                                            <td class="product-price">
+
+
+                                                <span class="amount">$ @item.Product.ProductPrice</span>
+
+                                            </td>
+                                            <td class="product-quantity">
+                                                <a asp-action="DetailsProducts" asp-controller="Home" asp-route-Id="@item.ProductId" class="border-btn">Add to Cart</a>
+                                            </td>
+                                            <td class="product-subtotal">
+                                                @if (item.Product.Discount != null && item.Product.Discount.DiscountPrecent > 0)
+                                                {
+                                                    var discount = (decimal)item.Product.ProductPrice * item.Product.Discount.DiscountPrecent;
+
+                                                    <span class="amount">$ @discount</span>
+                                                    <span class="price-old">$@item.Product.ProductPrice</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="amount">$ @item.Product.ProductPrice</span>
+                                                }
+                                            </td>
+                                            <td class="product-remove"><a asp-action="DeleteWishList" asp-route-ProductId="@item.Product.ProductId"><i class="fa fa-times"></i></a></td>
+                                        </tr>
+
+
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="6">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="alert alert-warning" role="alert">
+                                                            Your Wishlist is empty. Please add items to your Wishlist.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        @if (!(Model != null && Model.Products.Any()))
+                        {
+                            @await Component.InvokeAsync("Category", new { action = "banner" })
+
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- cart area end  -->

@@ -1,0 +1,33 @@
+﻿@model Solas.BL.Models.Advertisement
+
+@{
+    ViewData["Title"] = "AddAds";
+}
+
+<h1>AddAds</h1>
+
+<h4>Advertisement</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddAds">
+            <div asp-validation-summary="All" class="text-danger"></div>
+         
+            <div class="form-group">
+                <label asp-for="AdvertisementText" class="control-label"></label>
+                <input asp-for="AdvertisementText" class="form-control" />
+                <span asp-validation-for="AdvertisementText" class="text-danger"></span>
+            </div>
+          
+        
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsPublish" /> @Html.DisplayNameFor(model => model.IsPublish)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

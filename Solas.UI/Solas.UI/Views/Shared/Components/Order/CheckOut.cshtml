@@ -1,0 +1,94 @@
+﻿@model Solas.BL.Models.Order
+
+<div class="col-lg-6">
+    <div class="your-order mb-30 ">
+        <h3>Your order</h3>
+        <div class="your-order-table table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="product-name">Product</th>
+                        <th class="product-total">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Products)
+                    {
+                        
+                    
+                    <tr class="cart_item">
+                        <td class="product-name">
+                           @item.Product.ProductName <strong class="product-quantity"> x @item.Quintity</strong>
+                        </td>
+                        <td class="product-total">
+                                <span class="amount">$ @if (item.Totaldiscoun != 0)
+                                    {
+                                        @item.Totaldiscoun
+                                        <span class="price-old">@item.TotalOrginal</span>
+                                    }
+                                    else
+                                    {
+                                        @item.TotalOrginal
+                                    }
+                                </span>
+                            </td>
+                    </tr>
+                    }
+                 
+                </tbody>
+                <tfoot>
+                    <tr class="cart-subtotal">
+                        <th>Cart Subtotal</th>
+                        <td><span class="amount">JD @Model.CalculateOrderTotal()
+                            </span></td>
+                    </tr>
+                    <tr class="shipping">
+                        <th>Shipping</th>
+                        <td>
+                            <ul>
+                            
+                                    <li>
+
+                                        <label>
+                                            Flat Rate: <span class="amount">JD @ViewBag.Shipping</span>
+                                        </label>
+                                    </li>
+                                
+                             
+                               
+                                <li></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="order-total">
+                        <th>Order Total</th>
+                        <td>
+                            <strong><span class="amount">JD @Model.CalculateOrderTotalAfterDisc()</span></strong>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="payment-method">
+            <div class="accordion" id="checkoutAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="checkoutOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#bankOne" aria-expanded="true" aria-controls="bankOne">
+                            Paiement when recieving
+                        </button>
+                    </h2>
+                    <div id="bankOne" class="accordion-collapse collapse show"
+                         aria-labelledby="checkoutOne" data-bs-parent="#checkoutAccordion">
+                        <div class="accordion-body">
+                            We do not currently have payment methods available, please use cash upon receipt
+                        </div>
+                    </div>
+                </div>
+             
+            </div>
+          
+        </div>
+    </div>
+</div>

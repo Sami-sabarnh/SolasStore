@@ -1,0 +1,88 @@
+﻿@model Solas.BL.Models.Address
+@{
+    ViewData["Title"] = "EditAddress";
+}
+<div class="register-area pt-120 pb-120">
+    <div class="container container-small">
+        <form asp-action="EditAddress" method="post">
+            @Html.HiddenFor(x=>x.AddressId)
+    <div class="row">
+        <div class="col-md-6">
+            <div class="checkout-form-list">
+                <label asp-for="FirstName" class="control-label">FirstName</label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="checkout-form-list">
+                <label asp-for="LasttName" class="control-label">LastName</label>
+                <input asp-for="LasttName" class="form-control" />
+                <span asp-validation-for="LasttName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="checkout-form-list">
+                <label asp-for="City" class="control-label">City</label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="checkout-form-list">
+                <label asp-for="FirstAddressName" class="control-label">Address 1</label>
+                <input asp-for="FirstAddressName" class="form-control" />
+                <span asp-validation-for="FirstAddressName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="checkout-form-list">
+                <div class="checkout-form-list">
+                    <label asp-for="SecondtAddressName" class="control-label">Address 2</label>
+                    <input asp-for="SecondtAddressName" class="form-control" />
+                    <span asp-validation-for="SecondtAddressName" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="checkout-form-list">
+                <label asp-for="Apartment" class="control-label">Apartment</label>
+                <input asp-for="Apartment" class="form-control" />
+                <span asp-validation-for="Apartment" class="text-danger"></span>
+            </div>
+        </div>
+                <div class="col-md-12">
+                    <div class="checkout-form-list">
+                        <label asp-for="State" class="control-label">State</label>
+                        <input asp-for="State" class="form-control" />
+                        <span asp-validation-for="State" class="text-danger"></span>
+                    </div>
+                </div>
+            @*     <div class="col-md-12">
+                    <div class="checkout-form-list">
+                        <label asp-for="State" class="control-label">Company</label>
+                        <select id="Company" name="Company" class="form-control">
+                            <option value="">Select a company</option>
+                            @foreach (var company in @ViewBag.Companies)
+                            {
+                                <option value="@company">@company</option>
+                            }
+                        </select>
+                    </div>
+                </div> *@
+        <div class="col-md-6">
+            <div class="checkout-form-list">
+                <label asp-for="Mobile" class="control-label">Mobile*</label>
+                <input asp-for="Mobile" class="form-control" />
+                <span asp-validation-for="Mobile" class="text-danger"></span>
+            </div>
+        </div>
+                <div class="order-button-payment mt-20">
+                    <button type="submit" class="fill-btn">Edit Address</button>
+                </div>
+</form>
+
+    </div>
+</div>
+
+

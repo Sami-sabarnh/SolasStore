@@ -1,0 +1,59 @@
+﻿@model Solas.UI.Models.ViewModels.OrderProductWishlistViewModel
+
+
+@if (Model != null && Model.orderProducts != null && Model.orderProducts.Any())
+{
+    @functions {
+    public float CalculateTotal()
+    {
+        float totalTotal = 0;
+        foreach (var item in Model.orderProducts)
+        {
+            totalTotal += item.TotalOrginal;
+        }
+        return totalTotal;
+    }
+    }
+
+    <div class="action-item">
+        <a asp-action="Cart" asp-controller="Order">
+            <i class="fal fa-shopping-bag"></i>
+            <span class="action-item-number">@((Model != null) ? Model.orderProducts.Count() : 0)</span>
+        </a>
+        <a href="#" class="cart-items-price">
+            JD @(Model != null ? Model.TotalOriginal : 0)
+        </a>
+    </div>
+}
+else
+{
+    <div class="action-item">
+        <a asp-action="Cart" asp-controller="Order">
+            <i class="fal fa-shopping-bag"></i>
+            <span class="action-item-number">0</span>
+        </a>
+        <a href="#" class="cart-items-price">
+            JD 0
+        </a>
+    </div>
+}
+@if (Model != null && Model.wishlists != null && Model.wishlists.Products.Any())
+
+
+{
+    <div class="action-item">
+        <a asp-action="WishList" asp-controller="Order">
+            <i class="fal fa-heart"></i>
+            <span class="action-item-number">@Model.wishlists.Products.Count.ToString()</span>
+        </a>
+    </div>
+}
+else
+{
+    <div class="action-item">
+        <a asp-action="WishList" asp-controller="Order">
+            <i class="fal fa-heart"></i>
+            <span class="action-item-number">0</span>
+        </a>
+    </div>
+}

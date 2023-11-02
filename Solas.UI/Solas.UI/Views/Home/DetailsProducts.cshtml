@@ -1,0 +1,213 @@
+﻿@using Solas.BL.Models;
+@model Solas.BL.Models.Product
+@{
+    ViewData["Title"] = "Details";
+}
+
+<!-- page title area start  -->
+<section class="page-title-area" data-background="assets/img/bg/page-title-bg.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-title-wrapper text-center">
+                    <h1 class="page-title mb-10">Shop</h1>
+                    <div class="breadcrumb-menu">
+                        <nav aria-label="Breadcrumbs" class="breadcrumb-trail breadcrumbs">
+                            <ul class="trail-items">
+                                <li class="trail-item trail-begin"><a asp-action="Index" asp-controller="Home"><span>Home</span></a></li>
+                                <li class="trail-item trail-end"><span>@ViewData["Title"]</span></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- page title area end  -->
+<!-- shop details area start  -->
+<section class="shop-details-area pt-120 pb-90">
+    <div class="container container-small">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="product-details-tab-wrapper mb-30">
+                    <div class="product-details-tab">
+                        <div class="tab-content" id="productDetailsTab">
+                            @{
+
+                            
+                            var productImagesList = Model.ProductImages.ToList();
+                            }
+
+                            <div class="tab-pane fade active show" id="pro-1" role="tabpanel"
+                                 aria-labelledby="pro-1-tab">
+                                <a asp-action="DetailsProducts" asp-controller="Home" asp-route-Id="@Model.ProductId">
+                                <img  class="active" src="/ProductImages/@Model.ProductImages.FirstOrDefault()?.ProductImageUrl" alt="...">
+                                </a>
+                            </div>
+                            @for (int i = 0; i < productImagesList.Count; i++)
+                            {
+
+
+                                <div class="tab-pane fade" id="pro-@(i+1)" role="tabpanel" aria-labelledby="pro-@(i+1)-tab">
+                                    <img src="~/ProductImages/@productImagesList[i]?.ProductImageUrl" alt="...">
+                                </div>
+                            }
+                           
+                            
+                        </div>
+                    </div>
+                    <div class="product-details-nav">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                              @for (int i = 0; i < productImagesList.Count; i++)
+                            {
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link @(i == 0 ? "active" : "")" id="pro-@(i+1)-tab" data-bs-toggle="tab"
+                                            data-bs-target="#pro-@(i + 1)" type="button" role="tab" aria-controls="pro-@(i+1)"
+                                            aria-selected="@(i == 0 ? "true" : "false")">
+                                        <img src="~/ProductImages/@productImagesList[i]?.ProductImageUrl" alt="Button Image @(i+1)">
+                                    </button>
+                                </li>
+                            }
+                        
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-6">
+                <div class="product-side-info mb-30">
+                    <h4 class="product-name mb-10">@Model.ProductName</h4>
+                    @if (Model.Discount != null && Model.Discount.DiscountPrecent > 0)
+                    {
+                        var discount = (decimal)Model.ProductPrice * Model.Discount.DiscountPrecent;
+
+                        <span class="price-now product-price">
+                                                JD @(discount)
+
+                                            </span>
+
+                        <span class="price-old ">JD @Model.ProductPrice</span>
+
+                    }
+                    else{
+                        <span class="product-price">JD @Model.ProductPrice</span>
+
+                    }
+
+
+
+
+
+                    <p class="mb-30">
+                      @Model.ProductLongDesc
+                    </p>
+                    <form asp-action="AddCart" asp-controller="Order" method="post">
+                    @if (@ViewBag.OptionGroups != null && ViewBag.OptionGroups is List<OptionGroup>)
+                    {
+                        @foreach (var item in @ViewBag.OptionGroups)
+                        {
+                            var optionsForGroup = Model.productOptions.Where(x => x.ProductGroupId == item.OptionGroupId).ToList();
+
+                            if (optionsForGroup.Any())
+                            {
+                                <div class="available-sizes">
+                                    <div class="product__details__tag tagcloud mt-25 mb-10">
+                                      
+                                        @if (item.MustSelected)
+                                        {
+                                            <select name="OptionsId" id="@(item.OptionGroupId)" class="product-option-dropdown" required>
+                                                <option value="" selected>Select an @item.OptionGroupName</option>
+                                                @foreach (var option in optionsForGroup)
+                                                {
+                                                    <option  value="@option.OptionId">@option.ProductOptionName</option>
+                                                }
+                                            </select>
+                                        }
+                                        else
+                                        {
+                                              <span> @item.OptionGroupName : </span>
+                                            @foreach (var option in optionsForGroup)
+                                            {
+                                                <a>@option.ProductOptionName</a>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                    <div class="product-quantity-cart mb-25">
+                        @{
+                            var orderProduct = new Solas.BL.Models.OrderProduct(); // Create a new Comment object
+                        }
+                           
+                            <input type="hidden" id="ProductId" name="ProductId" asp-for="@orderProduct.ProductId" value="@Model.ProductId" />
+
+                                <div class="product-quantity-form">
+                                    <button class="cart-minus" onclick="decreaseQuantity('@Model.ProductId')"><i class="far fa-minus"></i></button>
+                                <input asp-for="@orderProduct.Quintity" id="quantityInput_@Model.ProductId" class="cart-input" type="text" value="1">
+                                    <button class="cart-plus" onclick="increaseQuantity('@Model.ProductId')"><i class="far fa-plus"></i></button>
+                                </div>
+                            <button type="submit" class="fill-btn">Add to Cart</button>
+
+                            </form>
+
+@*                         <a asp-action="AddOrder" asp-controller="Order" asp-route-id="@Model.ProductId" class="fill-btn">Add to Cart</a>
+ *@                    </div>
+                    <a asp-action="AddWishlist" asp-route-id="@Model.ProductId" asp-controller="Order" class="border-btn">Add to Wishlist</a>
+@*                     <div class="product__details__tag tagcloud mt-25 mb-10">
+                        <span>Tags : </span>
+                        <a href="#" rel="tag">Shirt</a>
+                        <a href="#" rel="tag">Cotton</a>
+                        <a href="#" rel="tag">Smart</a>
+                        <a href="#" rel="tag">Fashion</a>
+                    </div>
+ *@                </div>
+            </div>
+        </div>
+
+        <div class="product_info-faq-area pb-0">
+            <div class="">
+                <nav class="product-details-nav">
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link show" id="nav-general-tab" data-bs-toggle="tab" href="#nav-general"
+                           role="tab" aria-selected="false">Description</a>
+                        <a class="nav-item nav-link active" id="nav-seller-tab" data-bs-toggle="tab" href="#nav-seller"
+                           role="tab" aria-selected="true">Reviews</a>
+                    </div>
+                </nav>
+                <!--description  -->
+                <div class="tab-content product-details-content" id="nav-tabContent">
+                    <div class="tab-pane fade" id="nav-general" role="tabpanel">
+                        <div class="tabs-wrapper mt-35">
+                            <div class="product__details-des">
+                                <p>
+                                   @Model.ProductCartDesc
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--comment  -->
+                    @await Component.InvokeAsync("Comment", new { id =Model.ProductId })
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- shop details area end  -->
+@await Component.InvokeAsync("Product", new { action = "related" })
+
+
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+      
+    </script>
+    <style>
+        
+    </style>
+}

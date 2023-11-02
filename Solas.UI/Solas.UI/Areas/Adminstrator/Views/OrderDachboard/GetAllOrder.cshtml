@@ -1,0 +1,146 @@
+﻿@using Solas.BL.Models;
+@model IEnumerable<Solas.BL.Models.Order>
+@{
+    ViewData["Title"] = "GetAllOrder";
+}
+
+
+       
+<form asp-action="GetAllOrder" asp-controller="OrderDachboard" method="get">
+    <label for="filterDropdown">Select a filter:</label>
+    <select class="custom-select custom-select-sm form-control form-control-sm" name="orderStatus">
+        <option value="">Select a filter</option>
+        <option value="@OrderStatus.Pending"> @OrderStatus.Pending</option>
+        <option value="@OrderStatus.InProgress">@OrderStatus.InProgress</option>
+        <option value="@OrderStatus.Completed">@OrderStatus.Completed</option>
+        <option value="@OrderStatus.Cancelled">@OrderStatus.Cancelled</option>
+        <option value="@OrderStatus.NoNCompleted">@OrderStatus.NoNCompleted</option>
+        <option value="@OrderStatus.Delivered">@OrderStatus.Delivered </option>
+        <!-- Add more options as needed -->
+    </select>
+<input type="text" name="search" hidden value="search" />
+<button type="submit" class="btn btn-outline-dark">OK</button>
+
+    <br /><br />
+   
+</form>
+
+                <table class="table table-hover thead-primary ms-panel">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Order ID</th>
+                                        <th scope="col">Customer Name</th>
+                                        <th scope="col">Location</th>
+                                        <th scope="col">Order Status</th>
+           <th scope="col">Price</th>
+            <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        
+                                 
+                                    <tr>
+                                        <th scope="row">@item.OrderId</th>
+                                        <td>@item.user.FirstName @item.user.LastName</td>
+                                        <td> @item.Address?.State-@item.Address?.City</td>
+                                            @if (item.Status == OrderStatus.Delivered)
+                                            {
+                                                <td><span class="badge badge-success">@Enum.GetName(typeof(OrderStatus), item.Status)</span></td>
+
+                                            }
+                                            else if (item.Status == OrderStatus.Pending)
+                                            {
+                    <td><span class="badge badge-warning">@Enum.GetName(typeof(OrderStatus), item.Status)</span></td>
+
+                                            }
+                                            else if (item.Status == OrderStatus.Completed)
+                                            {
+                                                <td><span class="badge badge-success">@Enum.GetName(typeof(OrderStatus), item.Status)</span></td>
+                                            }
+                                            else if (item.Status == OrderStatus.InProgress)
+                                            {
+                    <td><span class="badge badge-secondary">@Enum.GetName(typeof(OrderStatus), item.Status)</span></td>
+
+                                            }
+                                            else if (item.Status == OrderStatus.Cancelled)
+                                            {
+                    <td><span class="badge badge-danger">@Enum.GetName(typeof(OrderStatus), item.Status)</span></td>
+
+                                            }
+                else if (item.Status == OrderStatus.NoNCompleted)
+                {
+                    <td><span class="badge badge-light">@Enum.GetName(typeof(OrderStatus), item.Status)</span></td>
+
+                }
+               <td>JD @item.CalculateOrderTotal()</td>
+                <td>
+                    <a class="badge badge-warning edit-button"
+                       data-order-id="@item.OrderId"
+                       data-order-status="@item.Status">
+                        Edit
+                    </a>
+                </td>
+            </tr>
+
+                                    }
+                                </tbody>
+                            </table>
+                       
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@12"></script>
+
+
+<script>
+    $(document).ready(function () {
+        // Add an event listener to all "Edit" buttons with class "edit-button"
+        $(".edit-button").on("click", function () {
+            // Get the OrderId and current OrderStatus from the data attributes of the button
+            var OrderId = $(this).data("order-id");
+            var orderStatus = $(this).data("order-status");
+
+            // Show a SweetAlert pop-up
+            Swal.fire({
+                title: 'Edit Order Status',
+                text: 'Current Status: ' + orderStatus,
+                input: 'select',
+                inputOptions: {
+                    'Pending': 'Pending',
+                    'InProgress': 'In Progress',
+                    'Completed': 'Completed',
+                    'Cancelled': 'Cancelled',
+                    'Delivered': 'Delivered',
+                    'NoNCompleted': 'NoNCompleted'
+                },
+                inputValue: orderStatus,  // Set the current status as the default value
+                showCancelButton: true,
+                inputValidator: (value) => {
+                    if (value) {
+                        console.log("dd")
+                        $.ajax({
+                            type: 'POST',
+                            url: "/Adminstrator/OrderDachboard/EditStatus",
+                            data: { orderStatus: value, OrderId: OrderId },
+                            headers: {
+                                RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                            },
+                            success: function (response) {
+                                if (response === "success") {
+                                    location.reload();
+                                } else {
+                                    Swal.fire('Error', 'Failed to update the status', 'error');
+                                }
+                            }
+                        });
+                    } else {
+                        // Handle validation error if needed
+                        return 'Please select a status';
+                    }
+                }
+            });
+        });
+    });
+</script>

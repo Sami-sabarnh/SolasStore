@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Solas.BL.Models.Option>
+
+@{
+    ViewData["Title"] = "AllOption";
+}
+
+<h1>AllOption</h1>
+
+<p>
+    <a asp-action="CreateOption">Create New Option</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OptionId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OptionName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OptionGroupId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OptionId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OptionName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OptionGroupId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

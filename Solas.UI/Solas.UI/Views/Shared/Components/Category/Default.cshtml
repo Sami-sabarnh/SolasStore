@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Solas.BL.Models.Category>
+
+
+            <div class="category-menu pos-rel">
+                <div class="category-click">
+                    <div class="bar-icon bar-icon-2">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <span>Category</span>
+                </div>
+                <div class="category-items">
+                    @foreach (var item in Model)
+                    {
+
+
+            <a asp-action="SearchByCategory" asp-controller="Home" asp-route-Id="@item.CategoryId" class="category-item">
+                        <div class="category-name">@item.CategoryName</div> <span class="category-items-number">  @item.ProductCategories.Count  </span>
+                    </a>
+                    }
+                </div>
+            </div>
+          

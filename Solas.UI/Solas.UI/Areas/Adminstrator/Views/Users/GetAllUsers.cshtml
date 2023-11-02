@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Solas.BL.Models.ApplicationUser>
+
+@{
+    ViewData["Title"] = "GetAllUsers";
+}
+
+
+<table class="table table-hover thead-primary ms-panel">
+    <thead>
+        <tr>
+            <th class="sorting" scope="col">User ID</th>
+            <th scope="col">User Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">EmailConfirmed</th>
+            <th scope="col">Delivered Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+
+            <tr>
+                <th scope="row">@item.Id</th>
+                <td>@item.FirstName @item.LastName</td>
+                <td> @item.Email</td>
+                @if (item.EmailConfirmed)
+                {
+                    <td><span class="badge badge-success">Confirm</span></td>
+
+                }
+                else
+                {
+                    <td><span class="badge badge-primary">NoNConfirm</span></td>
+
+                }
+                 @if (item.PhoneNumberConfirmed)
+                {
+                    <td><span class="badge badge-success">Confirm</span></td>
+
+                }
+                else
+                {
+                    <td><span class="badge badge-primary">NoNConfirm</span></td>
+
+                }
+              @*   else if (item.Status == OrderStatus.Completed)
+                {
+                    <td><span class="badge badge-success">@Enum.GetName(typeof(OrderStatus), item.Status)</span></td>
+                }
+                else if (item.Status == OrderStatus.InProgress)
+                {
+                    <td><span class="badge badge-success">@Enum.GetName(typeof(OrderStatus), item.Status)</span></td>
+
+                }
+                else if (item.Status == OrderStatus.Cancelled)
+                {
+                    <td><span class="badge badge-primary">@Enum.GetName(typeof(OrderStatus), item.Status)</span></td>
+
+                }
+                <td>24:00</td>
+                <td>JD @item.CalculateOrderTotalAfterDisc()</td> *@
+            </tr>
+
+        }
+    </tbody>
+</table>

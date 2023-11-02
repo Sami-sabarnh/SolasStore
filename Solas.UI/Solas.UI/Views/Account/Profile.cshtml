@@ -1,0 +1,98 @@
+﻿@model Solas.BL.Models.Address
+@{
+    ViewData["Title"] = "Profile";
+}
+
+
+<!-- page title area start  -->
+<section class="page-title-area" data-background="assets/img/bg/page-title-bg.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-title-wrapper text-center">
+                    <h1 class="page-title mb-10">Contact Us</h1>
+                    <div class="breadcrumb-menu">
+                        <nav aria-label="Breadcrumbs" class="breadcrumb-trail breadcrumbs">
+                            <ul class="trail-items">
+                                <li class="trail-item trail-begin"><a asp-action="Index" asp-controller="Home"><span>Home</span></a></li>
+                                <li class="trail-item trail-end"><span>Contact Us</span></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- page title area end  -->
+<!-- contact main area start  -->
+<section class="contact-main-area pt-120 pb-60">
+    <div class="container container-small">
+        <div class="row">
+        
+
+            <div class="col-lg-8 col-md-12">
+                <div class="contact-main-wrapper mb-60">
+                    <div class="checkbox-form">
+                        <h3>Address </h3>
+                        @if (@ViewBag.Addresses != null)
+                        {
+                            var addresses = ViewBag.Addresses as List<Solas.BL.Models.Address>;
+                            if (addresses != null && addresses.Any())
+                            {
+                                <div class="checkbox-form your-order mb-30 ">
+                                    <h5>Shopping To .. </h5>
+                                    <hr>
+                                    <form>
+
+
+                                        @foreach (var address in addresses)
+                                        {
+
+                                            <div class="col-md-12">
+                                                <div class="col-md-12">
+
+                                                    <input type="radio" name="selectedAddress" value="@address.AddressId">
+
+                                                    @address.City, @address.FirstAddressName, @address.Mobile ,@address.Apartment,@address.FirstName,@address.LasttName
+
+                                                </div>
+                                                <br>
+                                                <div class="col-md-6">
+
+                                                    <a class="btn btn-dark" asp-action="EditAddress" asp-controller="Account" asp-route-id="@address.AddressId">Edit</a>
+                                                    <a class="btn btn-dark" asp-action="DeleteAddress" asp-controller="Account" asp-route-id="@address.AddressId">Remove</a>
+
+                                                </div>
+                                            </div>
+                                            <hr>
+                                        }
+
+                                        <a class="btn btn-dark" asp-action="AddAddress" asp-controller="Account" >Add New Address?</a>
+
+                                    </form>
+                                </div>
+
+                            }
+                        }
+                      
+                    </div>
+
+                  
+                </div>
+            </div>
+         
+            
+            
+            
+            
+            @await Component.InvokeAsync("ApplicationUser")
+         
+            
+            
+            
+      
+        </div>
+    </div>
+</section>
+<!-- contact main area end  -->

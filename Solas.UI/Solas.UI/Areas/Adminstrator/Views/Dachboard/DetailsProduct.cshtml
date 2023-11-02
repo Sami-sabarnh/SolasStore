@@ -1,0 +1,171 @@
+﻿@using Solas.BL.Models;
+@model Solas.BL.Models.Product
+
+@{
+    ViewData["Title"] = "DetailsProduct";
+}
+<!-- Body Content Wrapper -->
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb pl-0">
+                    <li class="breadcrumb-item"><a href="#"><i class="material-icons">home</i> Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Menu</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Product Detail</li>
+                </ol>
+            </nav>
+        </div>
+    
+
+
+        <div class=" col-md-6">
+            <div class="ms-panel ms-panel-fh">
+                <div class="ms-panel-body">
+                    <h4 class="section-title bold">Product Info</h4>
+                    <table class="table ms-profile-information">
+                        <tbody>
+
+                            <tr>
+                                <th scope="row">Price</th>
+                                <td>JD @Model.ProductPrice </td>
+                            </tr>
+                          
+                            
+                          
+                        @if (@ViewBag.OptionGroups != null && ViewBag.OptionGroups is List<OptionGroup>)
+                        {
+
+                            @foreach (var item in @ViewBag.OptionGroups)
+                            {
+                                var optionsForGroup = Model.productOptions.Where(x => x.ProductGroupId == item.OptionGroupId).ToList();
+
+                                if (optionsForGroup.Any())
+                                {
+                                    <tr>
+                                <th scope="row"> @item.OptionGroupName</th>
+                                        <td>
+
+                                            @foreach (var option in optionsForGroup)
+                                            {
+                                                @option.ProductOptionName
+                                                <span>&nbsp;</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+
+                            <tr>
+                                <th scope="row">Availiblity</th>
+                            @if (!Model.IsPublish)
+                            {
+                                <td><span class="badge badge-pill badge-primary">Not Published</span></td>
+                            }
+
+                            else
+                            {
+                                <td><span class="badge badge-pill badge-success">IsPublish</span></td>
+                            }
+                          
+                            </tr>
+                        
+
+                            <tr>
+                            <th scope="row">Create date</th>
+                                <td>@Model.Createdate</td>
+                            </tr>
+                        <tr>
+                            <th scope="row">Modifie date</th>
+                            <td>@Model.Modifieddate</td>
+                        </tr>
+                        @if (Model.IsDeleted)
+                        {
+                            <tr>
+                                <th scope="row">Delete date</th>
+                                <td>@Model.Deleteddate</td>
+                            </tr>
+                        }
+                        @if(Model.Discount?.DiscountPrecent > 0)
+                        {
+                            <tr>
+                                <th scope="row">Discount Precent</th>
+                                <td>@Model.Discount.DiscountPrecent</td>
+                            </tr>
+                        }
+
+                        </tbody>
+                    </table>
+                    <div class="new">
+                    <a asp-action="EditProduct" asp-controller="Dachboard" class="btn btn-primary" asp-route-Id="@Model.ProductId">Edit</a>
+                    <a asp-action="DeleteProduct" asp-controller="Dachboard" class="btn btn-primary" asp-route-Id="@Model.ProductId">Delete</a>
+               
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class=" col-md-6">
+            <div class="ms-panel ms-panel-fh">
+                <div class="ms-panel-body">
+
+                    <h4 class="section-title bold">Product Details </h4>
+                <p class="description">@Model.ProductCartDesc</p>
+                <h4 class="section-title bold">Product Long Description </h4>
+
+                <p class="description">@Model.ProductLongDesc</p>
+                <h4 class="section-title bold">Product Short Description </h4>
+
+                <p class="description">@Model.ProductShortDesc</p>
+
+
+                </div>
+              
+            </div>
+        </div>
+
+    <div class="col-md-6">
+        <div class="ms-panel">
+            <div class="ms-panel-header">
+                <h6>Slider Images</h6>
+            </div>
+            <div class="ms-panel-body">
+                <div id="imagesSlider" class="ms-image-slider carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                     
+                        @foreach (var item in Model.ProductImages)
+                        {
+                            var isActive = (item == Model.ProductImages.First()) ? "active" : "";
+                            <div class="carousel-item @isActive">
+                                <img class="d-block w-100" src="~/ProductImages/@item.ProductImageUrl" alt="Slide">
+                            </div>
+                        }
+                    </div>
+                    <ol class="carousel-indicators">
+                         @foreach (var item in Model.ProductImages)
+                        {
+                            var isActive = (item == Model.ProductImages.First()) ? "active" : "";
+                            int count = 0;
+
+                            <li data-target="#imagesSlider" data-slide-to="count" class="@isActive"> <img class="d-block w-100" src="~/ProductImages/@item.ProductImageUrl" alt="First slide"></li>
+                            count += 1;
+                        }
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    </div>
+
+
+
+<script src="../../costic/js/promise.min.js">
+</script>
+<script src="../../costic/js/sweetalert2.min.js">
+</script>
+<script src="../../costic/js/sweet-alerts.js">
+</script>

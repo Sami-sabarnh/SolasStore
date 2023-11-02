@@ -1,0 +1,313 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+   
+    <title>Costic Dashboard</title>
+    <!-- Iconic Fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="vendors/iconic-fonts/font-awesome/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="vendors/iconic-fonts/flat-icons/flaticon.css">
+    <link rel="stylesheet" href="vendors/iconic-fonts/cryptocoins/cryptocoins.css">
+    <link rel="stylesheet" href="vendors/iconic-fonts/cryptocoins/cryptocoins-colors.css">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="~/costic/css/bootstrap.min.css" >
+    <!-- jQuery UI -->
+    <link rel="stylesheet" href="~/costic/css/jquery-ui.min.css" >
+    <!-- Page Specific CSS (Slick Slider.css) -->
+    <link rel="stylesheet" href="~/costic/css/slick.css">
+    <link rel="stylesheet" href="~/costic/css/datatables.min.css">
+    <!-- Costic styles -->
+    <link href="~/costic/css/driver.min.css" rel="stylesheet" />
+    <link href="~/costic/css/style.css" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.ico">
+    <link rel="stylesheet" href="~/costic/css/sweetalert2.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+
+<body class="ms-body ms-aside-left-open ms-primary-theme ms-has-quickbar">
+    <!-- Preloader -->
+    <div id="preloader-wrap">
+        <div class="spinner spinner-8">
+            <div class="ms-circle1 ms-child"></div>
+            <div class="ms-circle2 ms-child"></div>
+            <div class="ms-circle3 ms-child"></div>
+            <div class="ms-circle4 ms-child"></div>
+            <div class="ms-circle5 ms-child"></div>
+            <div class="ms-circle6 ms-child"></div>
+            <div class="ms-circle7 ms-child"></div>
+            <div class="ms-circle8 ms-child"></div>
+            <div class="ms-circle9 ms-child"></div>
+            <div class="ms-circle10 ms-child"></div>
+            <div class="ms-circle11 ms-child"></div>
+            <div class="ms-circle12 ms-child"></div>
+        </div>
+    </div>
+    <!-- Overlays -->
+    <div class="ms-aside-overlay ms-overlay-left ms-toggler" data-target="#ms-side-nav" data-toggle="slideLeft"></div>
+    <div class="ms-aside-overlay ms-overlay-right ms-toggler" data-target="#ms-recent-activity" data-toggle="slideRight"></div>
+    <!-- Sidebar Navigation Left -->
+    <aside id="ms-side-nav" class="side-nav fixed ms-aside-scrollable ms-aside-left">
+        <!-- Logo -->
+        <div class="logo-sn ms-d-block-lg">
+            <a class="pl-0 ml-0 text-center" asp-action="Index" asp-controller="Dachboard">
+                <img src="~/assets/img/logo/logo-bl.png" alt="logo">
+            </a>
+        </div>
+        <!-- Navigation -->
+        <ul class="accordion ms-main-aside fs-14" id="side-nav-accordion">
+            <li class="menu-item">
+                <a asp-area="" asp-action="Index" asp-controller="Home">
+                    <span><i class="fas fa-clipboard-list fs-16"></i>Go To Website</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a asp-action="Index" asp-controller="Dachboard">
+                    <span><i class="fas fa-clipboard-list fs-16"></i>Home Dachboard</span>
+                </a>
+            </li>
+            <!-- product -->
+         
+            <li class="menu-item">
+                <a asp-action="GetAllProducts" asp-controller="Dachboard">       <span><i class="fas fa-clipboard-list fs-16"></i> All Product</span></a>
+                    </li>
+            <li class="menu-item">
+                <a asp-action="GetAllProductsIsPublish" asp-controller="Dachboard">       <span><i class="fas fa-clipboard-list fs-16"></i> All Products Publish </span></a>
+                    </li>
+            <li class="menu-item">
+                <a asp-action="GetAllProductsNonPublish" asp-controller="Dachboard">      <span><i class="fas fa-clipboard-list fs-16"></i> All Products NonPublish </span></a>
+                    </li>
+            <li class="menu-item">
+                <a asp-action="GetAllProductsDeleted" asp-controller="Dachboard">      <span><i class="fas fa-clipboard-list fs-16"></i> All Products Deleted </span></a>
+                    </li>
+                   
+                    
+            <li class="menu-item">
+                <a asp-action="CreateProduct" asp-controller="Dachboard">      <span><i class="fas fa-clipboard-list fs-16"></i> Create Product </span></a>
+                    </li>
+                   
+              
+
+            <li class="menu-item">
+                <a asp-action="GetAllOrder" asp-controller="OrderDachboard">
+                    <span><i class="fas fa-clipboard-list fs-16"></i>    All Order</span>
+                
+                </a>
+            </li>
+            <li class="menu-item">
+                <a asp-action="CreateOption" asp-controller="Dachboard">
+                    <span><i class="fas fa-clipboard-list fs-16"></i>Create Option</span>
+                </a>
+            </li>
+             <li class="menu-item">
+                <a asp-action="CreateCategory" asp-controller="Dachboard">
+                    <span><i class="fas fa-clipboard-list fs-16"></i>Create Category</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a asp-action="CreateOptionGroup" asp-controller="Dachboard">
+                    <span><i class="fas fa-clipboard-list fs-16"></i>Create OptionGroup</span>
+                </a>
+            </li>
+          
+            <li class="menu-item">
+                <a asp-action="CreateOptionGroup" asp-controller="Dachboard">
+                    <span><i class="fas fa-clipboard-list fs-16"></i>Create OptionGroup</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a asp-action="AllOptionGroup" asp-controller="Dachboard">
+                    <span><i class="fas fa-clipboard-list fs-16"></i>All OptionGroup</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a asp-action="AllOption" asp-controller="Dachboard">
+                    <span><i class="fas fa-clipboard-list fs-16"></i>All Option</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a asp-action="AllCategory" asp-controller="Dachboard">
+                    <span><i class="fas fa-clipboard-list fs-16"></i>All Category</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a asp-action="AddDiscount" asp-controller="Dachboard">
+                    <span><i class="fas fa-clipboard-list fs-16"></i>Add Discount</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a asp-action="AddAds" asp-controller="Custimaize" asp-area="Adminstrator">
+                    <span><i class="fas fa-clipboard-list fs-16"></i>Add Ads</span>
+                </a>
+            </li>
+            <!-- orders end -->
+
+        </ul>
+    </aside>
+    <!-- Sidebar Right -->
+    <!-- Main Content -->
+    <main class="body-content">
+        <!-- Navigation Bar -->
+        <nav class="navbar ms-navbar">
+            <div class="ms-aside-toggler ms-toggler pl-0" data-target="#ms-side-nav" data-toggle="slideLeft">
+                <span class="ms-toggler-bar bg-primary"></span>
+                <span class="ms-toggler-bar bg-primary"></span>
+                <span class="ms-toggler-bar bg-primary"></span>
+            </div>
+            <div class="logo-sn logo-sm ms-d-block-sm">
+                <a class="pl-0 ml-0 text-center navbar-brand mr-0" asp-action="Index" asp-controller="Home"><img src="~/costic/img/costic/costic-logo-84x41.png" alt="logo"> </a>
+            </div>
+         
+            <div class="ms-toggler ms-d-block-sm pr-0 ms-nav-toggler" data-toggle="slideDown" data-target="#ms-nav-options">
+                <span class="ms-toggler-bar bg-primary"></span>
+                <span class="ms-toggler-bar bg-primary"></span>
+                <span class="ms-toggler-bar bg-primary"></span>
+            </div>
+        </nav>
+        <div class="ms-content-wrapper">
+            @RenderBody()
+        </div>
+    </main>
+    <!-- MODALS -->
+    <!-- Quick bar -->
+    <aside id="ms-quick-bar" class="ms-quick-bar fixed ms-d-block-lg">
+
+        <ul class="nav nav-tabs ms-quick-bar-list" role="tablist">
+
+        </ul>
+     
+
+        <!-- Quick bar Content -->
+  
+    </aside>
+    <!-- Reminder Modal -->
+    <div class="modal fade" id="reminder-modal" tabindex="-1" role="dialog" aria-labelledby="reminder-modal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-secondary">
+                    <h5 class="modal-title has-icon text-white"> New Reminder</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form>
+                    <div class="modal-body">
+                        <div class="ms-form-group">
+                            <label>Remind me about</label>
+                            <textarea class="form-control" name="reminder"></textarea>
+                        </div>
+                        <div class="ms-form-group">
+                            <span class="ms-option-name fs-14">Repeat Daily</span>
+                            <label class="ms-switch float-right">
+                                <input type="checkbox"> <span class="ms-switch-slider round"></span>
+                            </label>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="ms-form-group">
+                                    <input type="text" class="form-control datepicker" name="reminder-date" value="" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="ms-form-group">
+                                    <select class="form-control" name="reminder-time">
+                                        <option value="">12:00 pm</option>
+                                        <option value="">1:00 pm</option>
+                                        <option value="">2:00 pm</option>
+                                        <option value="">3:00 pm</option>
+                                        <option value="">4:00 pm</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary shadow-none" data-dismiss="modal">Add Reminder</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Notes Modal -->
+    <div class="modal fade" id="notes-modal" tabindex="-1" role="dialog" aria-labelledby="notes-modal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-secondary">
+                    <h5 class="modal-title has-icon text-white" id="NoteModal">New Note</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form>
+                    <div class="modal-body">
+                        <div class="ms-form-group">
+                            <label>Note Title</label>
+                            <input type="text" class="form-control" name="note-title" value="">
+                        </div>
+                        <div class="ms-form-group">
+                            <label>Note Description</label>
+                            <textarea class="form-control" name="note-description"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary shadow-none" data-dismiss="modal">Add Note</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- SCRIPTS -->
+    <!-- Global Required Scripts Start -->
+    <script src="~/costic/js/jquery-3.5.0.min.js"></script>
+    <script src="~/costic/js/popper.min.js"></script>
+    <script src="~/costic/js/bootstrap.min.js"></script>
+    <script src="~/costic/js/perfect-scrollbar.js">
+    </script>
+    <script src="~/costic/js/jquery-ui.min.js">
+    </script>
+    <!-- Global Required Scripts End -->
+    <!-- Page Specific Scripts Start -->
+
+    <script src="~/costic/js/Chart.bundle.min.js">
+    </script>
+    <script src="~/costic/js/widgets.js"> </script>
+    <script src="~/costic/js/clients.js"> </script>
+    <script src="~/costic/js/Chart.Financial.js"> </script>
+    <script src="~/costic/js/d3.v3.min.js">
+    </script>
+    <script src="~/costic/js/topojson.v1.min.js">
+    </script>
+    <script src="~/costic/js/datatables.min.js">
+    </script>
+    <script src="~/costic/js/data-tables.js">
+    </script>
+    <!-- Page Specific Scripts Finish -->
+    <!-- Costic core JavaScript -->
+    <script src="~/costic/js/sweetalert2.min.js"></script>
+    <script src="~/costic/js/form-wizard.js"></script>
+    <script src="~/costic/js/toast.js"></script>
+    <script src="~/costic/js/slick.min.js"></script>
+    <script src="~/costic/js/social.js"></script>
+    <script src="~/costic/js/animate.js"></script>
+    <script src="~/costic/js/widgets.js"></script>
+    <script src="~/costic/js/sweet-alerts.js"></script>
+    <script src="~/costic/js/framework.js"></script>
+    <script src="~/lib/sweetalert2/sweetalert2.min.js"></script>
+
+    <!-- Settings -->
+    <script src="~/costic/js/settings.js"></script>
+</body>
+
+</html>

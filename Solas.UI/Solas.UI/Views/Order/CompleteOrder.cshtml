@@ -1,0 +1,42 @@
+﻿@model Solas.BL.Models.Order
+
+@{
+    ViewData["Title"] = "CompleteOrder";
+}
+
+<!-- contact main area start  -->
+<section class="contact-main-area pt-120 pb-60">
+    <div class="container container-small">
+        <div class="row">
+            <div class="col-lg-8 col-md-12">
+                <div class="contact-main-wrapper mb-60">
+                    <div class="section-title">
+                        <h6 class="section-main-title mb-40">Thank you for choosing our store, we hope to see you again</h6>
+                        <div class="d-inline-flex p-2"><h4>This Your Tracking Number :</h4> </div> <h6 class="section-main-title mb-40"> @Model.TrackingId </h6>
+                    </div>
+                    <div class="contact-main-form">
+
+                        <div class="row">
+
+                            <div class="contact-btn">
+                                <a asp-action="Index" asp-controller="Home" class="fill-btn">Go Gome</a>
+
+                            </div>
+                            <br />     <br />     <br />
+                            <div class="contact-btn">
+                                <a asp-action="Trackinginput" class="fill-btn">Tracking Your Order?</a>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- contact main area end  -->
+@await Component.InvokeAsync("Category", new { action = "banner" })
+
+

@@ -1,0 +1,171 @@
+﻿@model IEnumerable<Solas.BL.Models.OrderProduct>
+
+@{
+    ViewData["Title"] = "Cart";
+
+}
+
+<!-- page title area start  -->
+<section class="page-title-area" data-background="assets/img/bg/page-title-bg.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-title-wrapper text-center">
+                    <h1 class="page-title mb-10">My Cart</h1>
+                    <div class="breadcrumb-menu">
+                        <nav aria-label="Breadcrumbs" class="breadcrumb-trail breadcrumbs">
+                            <ul class="trail-items">
+                                <li class="trail-item trail-begin"><a asp-action="Index" asp-controller="Home"><span>Home</span></a></li>
+                                <li class="trail-item trail-end"><span>@ViewData["Title"]</span></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- page title area end  -->
+<!-- cart area start  -->
+@if (Model != null && Model.Any())
+{
+<section class="cart-area pt-100 pb-100">
+    <div class="container container-small">
+        <div class="row">
+            <div class="col-12">
+                <div class="table-content table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="product-thumbnail">Images</th>
+                                <th class="cart-product-name">Product</th>
+                                <th class="product-price">Unit Price</th>
+                                    <th class="product-quantity">Quantity</th>
+                                    <th class="product-quantity">Options</th>
+                                <th class="product-subtotal">Total</th>
+                                <th class="product-remove">Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+
+
+                            <tr>
+                                <td class="product-thumbnail">
+                                        <a asp-action="DetailsProducts" asp-controller="Home" asp-route-Id="@item.ProductId">
+                                        <img src="~/ProductImages/@item.Product.ProductImages.FirstOrDefault()?.ProductImageUrl" alt="img">
+                                    </a>
+                                </td>
+                                        <td class="product-name"><a asp-action="DetailsProducts" asp-controller="Home" asp-route-Id="@item.ProductId"></a>@item.Product.ProductName</td>
+                                <td class="product-price">@if(item.Product.Discount!= null&&item.Product.Discount.DiscountPrecent>0) {
+                                            var discount = (decimal)item.Product.ProductPrice * item.Product.Discount.DiscountPrecent;
+
+                                            <span class="amount">JD @discount</span>
+                                            <span class="price-old">$@item.Product.ProductPrice</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="amount">$ @item.Product.ProductPrice</span>
+                                        }
+                                    </td>
+                                        <td class="product-quantity text-center">
+                                            <div class="product-quantity mt-10 mb-10">
+                                                    <span id="quantityInput_@item.OrderProductId" class="product-price">@item.Quintity</span>
+                                               
+                                            </div>
+                                        </td>
+                                        <td class="product-quantity text-center">
+                                            <div class="product-quantity mt-10 mb-10">
+                                                <span id="quantityInput_@item.OrderProductId" class="product-price">
+                                                    @foreach (var option in item.Options)
+                                                    {
+                                                        <span>@option.OptionName<br /></span>
+                                                    }
+                                                </span>
+
+                                            </div>
+                                        </td>
+                                <td class="product-subtotal">
+                                    @if(item.Totaldiscoun!=item.TotalOrginal){
+                                       <span class="amount">JD @item.Totaldiscoun</span>
+                                            <span class="price-old">JD @item.TotalOrginal</span>
+
+                                        }
+                                        else
+                                        {
+                                          <span class="amount">JD @item.TotalOrginal</span>
+
+                                        }
+                                    </td>
+                                        <td class="product-remove"><a asp-action="DeleteOrder" asp-route-orderProductId="@item.OrderProductId"><i class="fa fa-times"></i></a></td>
+                            </tr>
+                         }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="coupon-all">
+                         
+                            <div class="coupon2">
+                                <button onclick="window.location.reload()" class="fill-btn" name="update_cart"
+                                        type="submit">
+                                    Update cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 ml-auto">
+                        <div class="cart-page-total">
+                            <h2>Cart totals</h2>
+                            <ul class="mb-20">
+                                    @functions {
+                                    public float CalculateSubtotal(IEnumerable<Solas.BL.Models.OrderProduct> orderProducts)
+                                    {
+                                        float totalSubtotal = 0;
+                                        foreach (var item in orderProducts)
+                                        {
+                                            totalSubtotal += item.Totaldiscoun > 0 ? item.Totaldiscoun : item.TotalOrginal;
+                                        }
+                                        return totalSubtotal;
+                                    }
+
+                                    public float CalculateTotal(IEnumerable<Solas.BL.Models.OrderProduct> orderProducts)
+                                    {
+                                        float totalTotal = 0;
+                                        foreach (var item in orderProducts)
+                                        {
+                                            totalTotal += item.TotalOrginal;
+                                        }
+                                        return totalTotal;
+                                    }
+                                }
+                                <li>Subtotal <span>JD @CalculateTotal(Model)</span></li>
+                                    <li>Total <span>JD @CalculateSubtotal(Model)</span></li>
+                            </ul>
+                                <a class="border-btn" asp-action="Checkout">Proceed to checkout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+}
+else
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-warning" role="alert">
+                    Your cart is empty. Please add items to your cart.
+                </div>
+            </div>
+        </div>
+    </div>
+    @await Component.InvokeAsync("Category", new { action = "banner" })
+}
+<!-- cart area end  -->

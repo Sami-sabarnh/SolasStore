@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Solas.BL.Models.Product>
+
+<div class="related_product pb-70">
+    <div class="container container-small">
+        <div class="section-title mb-55">
+            <h2>Related Product</h2>
+        </div>
+        <!-- Slider main container -->
+        <div class="swiper-container r-product-active">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+                @foreach (var item in Model.OrderByDescending(x=>x.Discount?.DiscountPrecent).Take(5))
+                {
+                    var isNewProduct = (DateTime.Now - item.Createdate).TotalDays <= 7;
+
+                <div class="swiper-slide">
+                    <div class="single-product">
+                        <div class="product-image pos-rel">
+                                @if (item.ProductImages != null && item.ProductImages.Any())
+                                {
+                                    <a asp-action="DetailsProducts" asp-controller="Home" asp-route-Id="@item.ProductId"  class=""><img src="~/ProductImages/@item.ProductImages.First().ProductImageUrl" alt="img"></a>
+                                }
+                                else
+                                {
+                                    <a asp-action="DetailsProducts" asp-controller="Home" asp-route-Id="@item.ProductId"  class=""><img src="~/assets/img/product/2.png" alt="img"></a>
+
+                                }
+                                <div class="product-action">
+                                    <a asp-action="DetailsProducts" asp-controller="Home" asp-route-Id="@item.ProductId" class="quick-view-btn"><i class="fal fa-eye"></i></a>
+                                    <a asp-action="AddWishlist" asp-controller="Order" asp-route-id="@item.ProductId" class="wishlist-btn"><i class="fal fa-heart"></i></a>
+                                @*     <a href="#" class="compare-btn"><i class="fal fa-exchange"></i></a> *@
+                            </div>
+                            <div class="product-action-bottom">
+                                    <a asp-action="AddOrder" asp-controller="Order" asp-route-id="@item.ProductId" class="add-cart-btn">
+                                    <i class="fal fa-shopping-bag"></i>Add to
+                                    Cart
+                                </a>
+                            </div>
+                                @if (item.Discount != null && item.Discount.DiscountPrecent > 0)
+                                {
+                                    <div class="product-sticker-wrapper">
+                                        <span class="product-sticker discount"> -@(item.Discount.DiscountPrecent * 100)%</span>
+                                    </div>
+                                }
+                                else if (isNewProduct)
+                                {
+
+
+                                    <div class="product-sticker-wrapper">
+                                        <span class="product-sticker new">New</span>
+
+                                    </div>
+                                }
+                          
+                        </div>
+                            <div class="product-desc">
+                                <div class="product-name"><a asp-action="DetailsProducts" asp-controller="Home" asp-route-Id="@item.ProductId" >@item.ProductName</a></div>
+                                @if (item.Discount != null && item.Discount.DiscountPrecent > 0)
+                                {
+                                    var discount = ((decimal)item.ProductPrice - ((decimal)item.ProductPrice * item.Discount.DiscountPrecent));
+
+                                    <div class="product-price">
+                                        <span class="price-now">
+                                            JD @(discount)
+
+                                        </span>
+
+                                        <span class="price-old">JD @item.ProductPrice</span>
+
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="product-price">
+                                        <span class="price-now">JD @item.ProductPrice</span>
+
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                </div>
+              }
+            </div>
+            <!-- If we need pagination -->
+            <div class="testimonial-pagination text-center"></div>
+            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+        </div>
+    </div>
+</div>

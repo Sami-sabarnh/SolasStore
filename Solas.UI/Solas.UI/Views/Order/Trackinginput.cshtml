@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewData["Title"] = "Trackinginput";
+}
+
+<!-- contact main area start  -->
+<section class="contact-main-area pt-120 pb-60">
+    <div class="container container-small">
+        <div class="row">
+            <div class="col-lg-8 col-md-12">
+                <div class="contact-main-wrapper mb-60">
+                    <div class="section-title">
+                        <h2 class="section-main-title mb-40">Tracking Order</h2>
+                    </div>
+                    <div class="contact-main-form">
+                        <form action="Tracking" method="post">
+                            <div class="row">
+                              
+                                <div class="col-md-12">
+                                    <div class="single-form-input">
+                                        <input type="text" name="trackingid" placeholder="Enter Tracking Number">
+                                    </div>
+                                </div>
+                               
+                                 <div class="contact-btn">
+                                    <input type="submit" value="Tracking Now" class="fill-btn"> </input>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- contact main area end  -->
+@await Component.InvokeAsync("Category", new { action = "banner" })

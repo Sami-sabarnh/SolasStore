@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Solas.BL.Models.SubBanner>
+<!-- category banner area start  -->
+<div class="category-banner-area pt-30">
+    <div class="container">
+        <div class="row">
+             @{
+                // Order by CreationDate in descending order and take the last two
+                var lastTwoSubBanners = Model.OrderByDescending(x => x.Createdate).Take(2);
+            }
+
+            @foreach (var subBanner in lastTwoSubBanners)
+            {
+            <div class="col-xl-6 col-lg-6 col-md-12">
+                <div class="category-banner-single category-banner2 mb-30 pos-rel">
+                    <div class="category-banner-img">
+                            <img src="~/ProductImages/@subBanner.UrlImage" alt="banner-img">
+                    </div>
+                    <div class="category-banner-inner">
+                        <div class="category-banner-content">
+                                <a asp-action="ALLProducts" asp-controller="Home" class="product-category">
+                                <span>@subBanner.Title </span>
+                                
+                            </a>
+                            <p class="category-short-desc">@subBanner.SubTitle</p>
+                                <a asp-action="ALLProducts" asp-controller="Home" class="border-btn">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- category banner area end  -->

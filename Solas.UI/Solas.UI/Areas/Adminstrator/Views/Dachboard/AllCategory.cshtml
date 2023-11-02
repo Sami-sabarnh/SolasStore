@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Solas.BL.Models.Category>
+
+@{
+    ViewData["Title"] = "AllCategory";
+}
+
+<h1>AllCategory</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Createdate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDeleted)
+            </th>
+          
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Createdate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDeleted)
+            </td>
+
+            <td>
+                    @Html.ActionLink("Edit", "EditCategory", new {  id=item.CategoryId  }) |
+@*                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+ *@                    @Html.ActionLink("Delete", "DeleteCategory", new {  id=item.CategoryId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
