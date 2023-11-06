@@ -6,69 +6,84 @@
 
 <h3>All Products</h3>
 
+@if (Model != null && Model.Any())
+{
+
+    <table class="table table-hover thead-primary ms-panel">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductName)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Discount.DiscountPrecent)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductInvintory.Quintity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Createdate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Modifieddate)
+                </th>
 
 
-<table class="table table-hover thead-primary ms-panel">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductName)
-            </th>
-           
-            <th>
-                @Html.DisplayNameFor(model => model.ProductPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Discount.DiscountPrecent)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductInvintory.Quintity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Createdate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Modifieddate)
-            </th>
-         
-        
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
-            </td>
-          
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductPrice)
-            </td>
-            <td>
-                    @Html.DisplayFor(modelItem => item.Discount.DiscountPrecent)%
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductInvintory.Quintity)
-            </td>
-            <td>
-                  @Html.DisplayFor(modelItem => item.Createdate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Modifieddate)
-            </td>
-          
-           
-            <td>
-                    <a asp-action="DetailsProduct" asp-controller="Dachboard" asp-route-Id="@item.ProductId">Details</a> 
-            </td>
-        </tr>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Discount.DiscountPrecent)%
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductInvintory.Quintity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Createdate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Modifieddate)
+                    </td>
+
+
+                    <td>
+                        <a asp-action="DetailsProduct" asp-controller="Dachboard" asp-route-Id="@item.ProductId">Details</a> 
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
-    </tbody>
-</table>
+else
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-warning" role="alert">
+                    Products List is empty. Please add items .
+                </div>
+            </div>
+        </div>
+    </div>
+}

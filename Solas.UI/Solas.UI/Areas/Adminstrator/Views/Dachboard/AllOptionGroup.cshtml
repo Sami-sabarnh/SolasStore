@@ -5,10 +5,8 @@
 }
 
 <h1>AllOptionGroup</h1>
-
-<p>
-    <a asp-action="CreateOptionGroup">Create New</a>
-</p>
+@if (Model != null && Model.Any())
+{
 <table class="table">
     <thead>
         <tr>
@@ -39,3 +37,16 @@
 }
     </tbody>
 </table>
+                            }
+else
+{
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-warning" role="alert">
+                    AllOptionGroup List is empty. Please add items .
+            </div>
+        </div>
+    </div>
+</div>
+}

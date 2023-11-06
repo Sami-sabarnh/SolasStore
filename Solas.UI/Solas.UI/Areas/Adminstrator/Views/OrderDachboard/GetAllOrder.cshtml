@@ -4,8 +4,10 @@
     ViewData["Title"] = "GetAllOrder";
 }
 
+<h3>All Orders</h3>
 
-       
+@if (Model != null && Model.Any())
+{
 <form asp-action="GetAllOrder" asp-controller="OrderDachboard" method="get">
     <label for="filterDropdown">Select a filter:</label>
     <select class="custom-select custom-select-sm form-control form-control-sm" name="orderStatus">
@@ -88,6 +90,23 @@
                                 </tbody>
                             </table>
                        
+
+
+                            }
+else
+{
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-warning" role="alert">
+                    Orders List is empty. Please add items .
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

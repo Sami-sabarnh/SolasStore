@@ -25,7 +25,7 @@ namespace Solas.UI.Areas.Adminstrator.Controllers
         public IActionResult Index()
         {
            
-            return View();
+            return RedirectToAction(nameof(GetAllProducts));
 
         }
         public async Task<IActionResult> GetAllProducts()

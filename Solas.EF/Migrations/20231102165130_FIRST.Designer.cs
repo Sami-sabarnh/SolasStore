@@ -12,8 +12,8 @@ using Solas.EF;
 namespace Solas.EF.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231029220930_gggbcssaf")]
-    partial class gggbcssaf
+    [Migration("20231102165130_FIRST")]
+    partial class FIRST
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -229,6 +229,38 @@ namespace Solas.EF.Migrations
                     b.ToTable("Addreses");
                 });
 
+            modelBuilder.Entity("Solas.BL.Models.Advertisement", b =>
+                {
+                    b.Property<int>("AdvertisementId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdvertisementId"));
+
+                    b.Property<string>("AdvertisementText")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Createdate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("Deleteddate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPublish")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("Modifieddate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("AdvertisementId");
+
+                    b.ToTable("Advertisements");
+                });
+
             modelBuilder.Entity("Solas.BL.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -397,6 +429,12 @@ namespace Solas.EF.Migrations
                     b.Property<string>("CouponCodeText")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CouponCodedisscount")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CouponCodepercent")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -575,7 +613,7 @@ namespace Solas.EF.Migrations
                     b.Property<int?>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CouponCodeId")
+                    b.Property<int?>("CouponCodeId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Createdate")
@@ -608,6 +646,9 @@ namespace Solas.EF.Migrations
                     b.Property<string>("OrderNotes")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ShippingId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -626,6 +667,8 @@ namespace Solas.EF.Migrations
                     b.HasIndex("CouponCodeId");
 
                     b.HasIndex("DiscountId");
+
+                    b.HasIndex("ShippingId");
 
                     b.HasIndex("UserId");
 
@@ -850,6 +893,32 @@ namespace Solas.EF.Migrations
                     b.HasIndex("WishlistId");
 
                     b.ToTable("productWishlists");
+                });
+
+            modelBuilder.Entity("Solas.BL.Models.Shipping", b =>
+                {
+                    b.Property<int>("ShippingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ShippingId"));
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Notes")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ShippingCoupon")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ShippingPrice")
+                        .HasColumnType("int");
+
+                    b.HasKey("ShippingId");
+
+                    b.ToTable("shippings");
                 });
 
             modelBuilder.Entity("Solas.BL.Models.SocialMedia", b =>
@@ -1112,13 +1181,15 @@ namespace Solas.EF.Migrations
 
                     b.HasOne("Solas.BL.Models.CouponCode", "couponCode")
                         .WithMany("Orders")
-                        .HasForeignKey("CouponCodeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CouponCodeId");
 
                     b.HasOne("Solas.BL.Models.Discount", "Discount")
                         .WithMany("Orders")
                         .HasForeignKey("DiscountId");
+
+                    b.HasOne("Solas.BL.Models.Shipping", "Shipping")
+                        .WithMany("Orders")
+                        .HasForeignKey("ShippingId");
 
                     b.HasOne("Solas.BL.Models.ApplicationUser", "user")
                         .WithMany("Orders")
@@ -1129,6 +1200,8 @@ namespace Solas.EF.Migrations
                     b.Navigation("Address");
 
                     b.Navigation("Discount");
+
+                    b.Navigation("Shipping");
 
                     b.Navigation("couponCode");
 
@@ -1362,6 +1435,11 @@ namespace Solas.EF.Migrations
                 {
                     b.Navigation("Product")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Solas.BL.Models.Shipping", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("Solas.BL.Models.StoreInfo", b =>

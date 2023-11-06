@@ -33,7 +33,11 @@
             }
               @if (_signInManager.IsSignedIn(User))
             {
+              @*   if (User.IsInRole("Admin"))
+                {
+                    <li><a asp-area="Adminstrator" asp-action="Index" asp-controller="Dachboard">Go To Dachboard</a></li>
 
+                } *@
                 @foreach (var item in Model.Where(x => x.AdminJustShow))
                 {
                     if (User.IsInRole("Admin"))
