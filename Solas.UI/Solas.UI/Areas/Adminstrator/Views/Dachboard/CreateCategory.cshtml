@@ -23,22 +23,14 @@
                 <input asp-for="CategoryDescription" class="form-control" />
                 <span asp-validation-for="CategoryDescription" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Createdate" class="control-label"></label>
-                <input asp-for="Createdate" class="form-control" />
-                <span asp-validation-for="Createdate" class="text-danger"></span>
-            </div>
+         
             <div class="form-group">
                 <label asp-for="ProductImageUrl" class="control-label"></label>
-                <input asp-for="ProductImageUrl" type="file" class="form-control" name="Categoryimage" />
+                <input asp-for="ProductImageUrl" type="file" name="Categoryimage" />
                 <span asp-validation-for="ProductImageUrl" class="text-danger"></span>
             </div>
            
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
-                </label>
-            </div>
+          
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -46,7 +38,5 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 

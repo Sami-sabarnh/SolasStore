@@ -31,45 +31,13 @@
 
                 }
             }
-              @if (_signInManager.IsSignedIn(User))
-            {
-              @*   if (User.IsInRole("Admin"))
+           
+                @if (User.IsInRole("Admin"))
                 {
                     <li><a asp-area="Adminstrator" asp-action="Index" asp-controller="Dachboard">Go To Dachboard</a></li>
 
-                } *@
-                @foreach (var item in Model.Where(x => x.AdminJustShow))
-                {
-                    if (User.IsInRole("Admin"))
-                    {
-                        @if (item.subMenus.Any())
-                        {
-                            <li class="menu-item-has-children">
-                                <a asp-action="@item.ActionName" asp-controller="@item.ControllerName">@item.MenuName</a>
-
-                                <ul class="sub-menu">
-                                    @foreach (var submenu in item.subMenus)
-                                    {
-
-                                        <li><a asp-area="@item.AreaName" asp-action="@submenu.ActionNane" asp-controller="@submenu.ControllerName">@submenu.SubMenuName</a></li>
-
-
-                                    }
-                                </ul>
-
-                            </li>
-                        }
-                        else
-                        {
-                            <li>
-                                <a asp-area="@item.AreaName" asp-action="@item.ActionName" asp-controller="@item.ControllerName">@item.MenuName</a>
-                            </li>
-
-                        }
-                    }
                 }
-
-            }
+              
         </ul>
     </nav>
 </div>

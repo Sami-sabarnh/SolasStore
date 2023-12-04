@@ -178,6 +178,7 @@ namespace Solas.UI.Areas.Adminstrator.Controllers
 
           string data =  _imageService.AddImage(Categoryimage);
             categoryy.ProductImageUrl = data;
+            categoryy.Createdate = DateTime.Now;
             unitofwork.categorys.Add(categoryy);
             unitofwork.Complete();
 

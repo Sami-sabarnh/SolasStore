@@ -110,6 +110,7 @@ namespace Solas.EF.Repositories
 
             return await query.Where(match).ToListAsync();
         }
+
         public async Task<IEnumerable<T>> GetAllAsync(string[] includes = null)
         {
             IQueryable<T> query = _db.Set<T>();

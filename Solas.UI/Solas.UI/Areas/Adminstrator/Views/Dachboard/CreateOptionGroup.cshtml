@@ -18,6 +18,18 @@
                 <input asp-for="OptionGroupName" class="form-control" />
                 <span asp-validation-for="OptionGroupName" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="MustSelected" class="control-label"></label>
+                <select asp-for="MustSelected" class="form-control">
+                    <option>True</option>
+                    <option>False</option>
+
+                </select>
+                <span asp-validation-for="MustSelected" class="text-danger"></span>
+            </div>
+
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
                 <a asp-action="AllOptionGroup">Back to List</a>

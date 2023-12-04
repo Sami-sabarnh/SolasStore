@@ -13,7 +13,7 @@ namespace Solas.BL.IRepositories
         IEnumerable<T> GetAll();
         IEnumerable<T> GetAll(string[] includes = null);
 
-     
+
 
         void Update(int id, T model);
         //Async Methods

@@ -52,9 +52,7 @@
                     </td>
 
                     <td>
-                        @Html.ActionLink("Edit", "EditCategory", new {  id=item.CategoryId  }) |
-                        @*                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
- *@                    @Html.ActionLink("Delete", "DeleteCategory", new {  id=item.CategoryId })
+                   @Html.ActionLink("Delete", "DeleteCategory", new {  id=item.CategoryId })
                     </td>
                 </tr>
             }
